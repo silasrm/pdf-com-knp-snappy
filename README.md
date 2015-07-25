@@ -133,3 +133,58 @@ Caso deseje adicionar informações no rodapé:
     echo $snappy->getOutput('http://www.schoolofnet.com/blog/');
 
 
+###Gerando thumbnail de parte da página
+
+Caso deseje gerar uma thumbnail de uma dimensão específica de qualquer lugar da página:
+
+    <?php
+    
+    require_once 'vendor/autoload.php';
+    
+    use Knp\Snappy\Image;
+    
+    $snappy = new Image('/usr/local/bin/wkhtmltoimage', ['format' => 'png']);
+    $snappy->setDefaultExtension('png');
+    $snappy->setOptions(
+        [
+            'crop-w' => 200,
+            'crop-h' => 200,
+            'crop-x' => 400,
+            'crop-y' => 20,
+        ]
+    );
+    
+    // Cabeçalho para o navegador entender que o conteúdo é uma imagem PNG
+    header('Content-Type: image/png');
+    
+    echo $snappy->getOutput('http://www.schoolofnet.com/blog/');
+
+
+###Gerando thumbnail da página sem corte
+
+Caso deseje gerar uma thumbnail de toda a página numa dimensão de largura específica:
+
+    <?php
+    
+    require_once 'vendor/autoload.php';
+    
+    use Knp\Snappy\Image;
+    
+    $snappy = new Image('/usr/local/bin/wkhtmltoimage', ['format' => 'png']);
+    $snappy->setDefaultExtension('png');
+    $snappy->setOptions(
+        [
+            'width' => 200,
+        ]
+    );
+    
+    // Cabeçalho para o navegador entender que o conteúdo é uma imagem PNG
+    header('Content-Type: image/png');
+    
+    echo $snappy->getOutput('http://www.schoolofnet.com/blog/');
+
+
+
+##Considerações
+
+Existem diversas outras opções de uso para __PDF__ e __imagens__, basta checar o comando *-H* do __wkhtmltopdf__ e do __wkhtmltoimage__.
